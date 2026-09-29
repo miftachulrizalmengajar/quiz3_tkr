@@ -1,0 +1,1695 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CBT Quiz 3 - Bahasa Inggris TKR</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fffbebe',
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            700: '#b45309',
+                            800: '#78350f',
+                            900: '#451a03',
+                        },
+                        auto: {
+                            dark: '#0f172a',
+                            card: '#1e293b',
+                            accent: '#06b6d4',
+                            danger: '#ef4444',
+                            success: '#10b981'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- jsPDF & html2canvas Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 9999px; }
+        ::-webkit-scrollbar-thumb:hover { background: #06b6d4; }
+
+        /* Disable User Selection */
+        .no-select {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* Glassmorphism Effect */
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Gauge Bar */
+        .gauge-bar {
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Print Style Optimization for Certificate */
+        @media print {
+            body * { visibility: hidden; }
+            #printable-certificate, #printable-certificate * { visibility: visible; }
+            #printable-certificate {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                background: white !important;
+                color: black !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col justify-between no-select antialiased selection:bg-none">
+
+    <!-- HEADER BAR -->
+    <header class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 shadow-lg">
+        <div class="max-w-md md:max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-cyan-500 flex items-center justify-center text-slate-950 font-black text-xl shadow-lg shadow-amber-500/20">
+                    <i class="fa-solid fa-wrench"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="bg-amber-500/20 text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded border border-amber-500/30 tracking-wider">QUIZ 3</span>
+                        <span class="text-xs text-slate-400 font-mono">X-TKR</span>
+                    </div>
+                    <h1 class="text-base font-extrabold text-slate-100 leading-tight">BAHASA INGGRIS OTOMOTIF</h1>
+                </div>
+            </div>
+            
+            <button id="soundToggleBtn" onclick="toggleAudio()" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-400 border border-slate-700 flex items-center justify-center transition-colors">
+                <i id="soundIcon" class="fa-solid fa-volume-high"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-md md:max-w-4xl w-full mx-auto p-4 flex flex-col justify-center">
+
+        <!-- 1. LANDING PAGE / REGISTRATION FORM -->
+        <section id="landingPage" class="space-y-6 my-auto">
+            <div class="glass-panel rounded-2xl p-6 border border-slate-800 shadow-2xl relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 opacity-5 text-amber-500 pointer-events-none">
+                    <i class="fa-solid fa-car-battery text-[180px]"></i>
+                </div>
+
+                <div class="text-center space-y-2 mb-6">
+                    <div class="inline-block px-3 py-1 bg-cyan-500/10 border border-cyan-500/30 rounded-full text-cyan-400 text-xs font-semibold tracking-wide uppercase">
+                        Computer Based Test (CBT)
+                    </div>
+                    <h2 class="text-2xl font-black text-white">EVALUASI PEMBELAJARAN</h2>
+                    <p class="text-xs text-amber-400 font-semibold uppercase tracking-wider">Materi: Giving Suggestion & Opinion</p>
+                </div>
+
+                <!-- Game Rules Box -->
+                <div class="bg-slate-900/80 rounded-xl p-4 border border-slate-800 mb-6 space-y-2 text-xs text-slate-300">
+                    <h3 class="font-bold text-amber-400 text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-shield-halved text-cyan-400"></i> ATURAN & SISTEM EVALUASI
+                    </h3>
+                    <ul class="space-y-1.5 list-disc list-inside text-slate-400">
+                        <li>Dapatkan <strong class="text-slate-200">25 Soal Acak</strong> dari Bank Soal (35 PG & 15 Benar/Salah).</li>
+                        <li>Sistem <strong class="text-amber-400">Anti-Curang Active</strong>: Dilarang pindah tab/layar, screenshot, atau copy-paste.</li>
+                        <li>Pindah tab/layar mengurangi <strong class="text-rose-400">5 Poin EXP</strong> per pelanggaran.</li>
+                        <li><strong>Ketentuan Remedial:</strong> Remedial hanya dapat dilakukan <strong class="text-amber-400">maksimal 1x</strong> untuk nama siswa yang sama.</li>
+                        <li>Batas Kelulusan (KKM): <strong class="text-emerald-400">70 Poin</strong>. Sertifikat & Laporan Hasil resmi diterbitkan untuk <strong class="text-cyan-400">Semua Siswa</strong>.</li>
+                    </ul>
+                </div>
+
+                <!-- Registration Form -->
+                <form id="regForm" onsubmit="startExam(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1">
+                            <i class="fa-solid fa-user text-amber-400 mr-1"></i> Nama Lengkap Siswa
+                        </label>
+                        <input type="text" id="studentName" required placeholder="Contoh: Budi Pratama" 
+                            class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-300 mb-1">
+                                <i class="fa-solid fa-chalkboard-user text-amber-400 mr-1"></i> Pilihan Kelas
+                            </label>
+                            <select id="studentClass" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-3 text-sm text-slate-100 focus:outline-none focus:border-cyan-400 transition-all">
+                                <option value="X TKR 1">X TKR 1</option>
+                                <option value="X TKR 2">X TKR 2</option>
+                                <option value="X TKR 3">X TKR 3</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-300 mb-1">
+                                <i class="fa-solid fa-list-ol text-amber-400 mr-1"></i> No. Absen
+                            </label>
+                            <input type="number" id="studentAbsen" min="1" max="36" required placeholder="1 - 36" 
+                                class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all">
+                        </div>
+                    </div>
+
+                    <div id="attemptWarningNotice" class="hidden p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs">
+                        <i class="fa-solid fa-triangle-exclamation mr-1"></i> Perhatian: Anda telah menyelesaikan Ujian Utama. Kesempatan Ujian Remedial tersisa <strong>1x</strong>.
+                    </div>
+
+                    <button type="submit" id="startBtn" class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-amber-500 via-amber-600 to-cyan-500 hover:from-amber-400 hover:to-cyan-400 text-slate-950 font-black text-sm tracking-wider uppercase shadow-lg shadow-amber-500/20 active:scale-95 transition-all flex items-center justify-center gap-2">
+                        <span>Mulai Pengerjaan Quiz</span>
+                        <i class="fa-solid fa-play"></i>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- 2. QUIZ EXAM SCREEN -->
+        <section id="quizPage" class="hidden space-y-4">
+            
+            <!-- Live Gamification HUD -->
+            <div class="glass-panel rounded-xl p-3 border border-slate-800 flex items-center justify-between text-xs">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <div>
+                        <div class="text-[10px] text-slate-400 font-semibold uppercase">EXP Score</div>
+                        <div id="hudExpScore" class="text-sm font-black text-amber-400 font-mono">100</div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-400 border border-rose-500/30 flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                    <div>
+                        <div class="text-[10px] text-slate-400 font-semibold uppercase">Pelanggaran</div>
+                        <div id="hudViolationCount" class="text-sm font-black text-rose-400 font-mono">0</div>
+                    </div>
+                </div>
+
+                <div class="text-right">
+                    <div class="text-[10px] text-slate-400 font-semibold uppercase">Progress</div>
+                    <div class="text-xs font-bold text-cyan-400"><span id="currentQNum">1</span> / 25</div>
+                </div>
+            </div>
+
+            <!-- Progress Gauge Bar -->
+            <div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden border border-slate-800">
+                <div id="progressBar" class="gauge-bar bg-gradient-to-r from-amber-500 to-cyan-400 h-full w-0"></div>
+            </div>
+
+            <!-- Active Question Card -->
+            <div id="questionCard" class="glass-panel rounded-2xl p-5 border border-slate-800 space-y-5 shadow-xl relative">
+                <!-- Question Header -->
+                <div class="flex items-center justify-between border-b border-slate-800/80 pb-3">
+                    <span id="questionTypeBadge" class="px-2.5 py-1 rounded-md text-[10px] font-bold tracking-wider uppercase bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
+                        Pilihan Ganda
+                    </span>
+                    <span class="text-xs font-mono text-slate-400">Context: <span id="questionContext" class="text-amber-400 font-semibold">TKR Workshop</span></span>
+                </div>
+
+                <!-- Question Prompt Text -->
+                <div id="questionText" class="text-sm md:text-base font-semibold text-slate-100 leading-relaxed min-h-[60px]">
+                    <!-- Text inserted dynamically -->
+                </div>
+
+                <!-- Answer Options Container -->
+                <div id="optionsContainer" class="space-y-2.5">
+                    <!-- Options inserted dynamically -->
+                </div>
+
+                <!-- Nav Action Buttons -->
+                <div class="pt-2 flex items-center justify-between gap-3 border-t border-slate-800/80">
+                    <button id="prevBtn" onclick="prevQuestion()" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs transition-colors flex items-center gap-1.5 disabled:opacity-40 disabled:cursor-not-allowed">
+                        <i class="fa-solid fa-arrow-left"></i> SEBELUMNYA
+                    </button>
+                    <button id="nextBtn" onclick="nextQuestion()" class="px-5 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs transition-colors flex items-center gap-1.5 shadow-md shadow-cyan-500/20">
+                        <span>SELANJUTNYA</span> <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. RETRY / REVISION STAGE SCREEN -->
+        <section id="retryPage" class="hidden space-y-6 my-auto">
+            <div class="glass-panel rounded-2xl p-6 border border-amber-500/30 text-center space-y-4">
+                <div class="w-16 h-16 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/40 flex items-center justify-center mx-auto text-2xl font-black">
+                    <i class="fa-solid fa-rotate-right animate-spin"></i>
+                </div>
+                <h2 class="text-xl font-black text-white">SESI PERBAIKAN SOAL (RETRY)</h2>
+                <p class="text-xs text-slate-300 max-w-md mx-auto">
+                    Sistem mendeteksi ada <span id="retryCountText" class="font-bold text-amber-400">0</span> soal yang belum tepat pada tahap utama. Manfaatkan kesempatan ini untuk memperbaiki jawaban kamu!
+                </p>
+
+                <div class="p-4 bg-slate-900 rounded-xl border border-slate-800 text-left text-xs space-y-2">
+                    <div class="flex justify-between text-slate-400">
+                        <span>Total Soal Remedial:</span>
+                        <strong id="retryTotalNum" class="text-slate-100">0 Soal</strong>
+                    </div>
+                    <div class="flex justify-between text-slate-400">
+                        <span>Sisa Kesempatan Remedial:</span>
+                        <strong id="remedialAttemptsLeft" class="text-emerald-400">1 Kali</strong>
+                    </div>
+                </div>
+
+                <button onclick="startRetryStage()" class="w-full py-3.5 px-6 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-sm uppercase tracking-wider shadow-lg shadow-amber-500/20 transition-all">
+                    Mulai Sesi Perbaikan
+                </button>
+            </div>
+        </section>
+
+        <!-- 4. RESULTS DASHBOARD SCREEN -->
+        <section id="resultsPage" class="hidden space-y-6 my-auto">
+            <div id="resultsCard" class="glass-panel rounded-2xl p-6 border border-slate-800 text-center space-y-5 relative overflow-hidden">
+                
+                <div id="passBadgeHeader" class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+                    <!-- Dynamic Badge -->
+                </div>
+
+                <h2 class="text-2xl font-black text-white">HASIL EVALUASI QUIZ 3</h2>
+
+                <!-- Score Radial / Stat Board -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 bg-slate-900/90 rounded-xl p-3 border border-slate-800 text-center">
+                    <div>
+                        <div class="text-[10px] text-slate-400 font-semibold uppercase">Jawaban Benar</div>
+                        <div id="resCorrectScore" class="text-base font-black text-emerald-400 font-mono">0 / 25</div>
+                    </div>
+                    <div>
+                        <div class="text-[10px] text-slate-400 font-semibold uppercase">Jawaban Salah</div>
+                        <div id="resWrongScore" class="text-base font-black text-rose-400 font-mono">0 / 25</div>
+                    </div>
+                    <div>
+                        <div class="text-[10px] text-slate-400 font-semibold uppercase">Pelanggaran</div>
+                        <div id="resViolations" class="text-base font-black text-amber-400 font-mono">0 (-0)</div>
+                    </div>
+                    <div>
+                        <div class="text-[10px] text-slate-400 font-semibold uppercase">Skor Akhir</div>
+                        <div id="resFinalScore" class="text-base font-black text-cyan-400 font-mono">0</div>
+                    </div>
+                </div>
+
+                <!-- Apps Script Sync Status Indicator -->
+                <div id="syncStatus" class="text-[11px] text-slate-400 flex items-center justify-center gap-2 py-1">
+                    <i class="fa-solid fa-spinner fa-spin text-cyan-400"></i>
+                    <span>Mengirim data rekap ke Google Spreadsheet...</span>
+                </div>
+
+                <!-- Status Text -->
+                <div id="statusMessage" class="text-xs text-slate-300 p-3 rounded-xl bg-slate-900/50 border border-slate-800">
+                    <!-- Custom message -->
+                </div>
+
+                <!-- Actions -->
+                <div class="space-y-2.5 pt-2">
+                    <!-- Certificate button is ALWAYS available for BOTH Lulus & Remedial -->
+                    <button id="certBtn" onclick="showCertificateModal()" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-md">
+                        <i class="fa-solid fa-award text-base"></i> Lihat / Cetak Sertifikat & Laporan Hasil
+                    </button>
+
+                    <button onclick="downloadDiscussionPDF()" class="w-full py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-slate-700 font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all">
+                        <i class="fa-solid fa-file-pdf text-base"></i> Unduh Pembahasan Soal (PDF)
+                    </button>
+
+                    <button id="retakeBtn" onclick="resetExamForRemedial()" class="hidden w-full py-3 px-4 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-400 border border-rose-500/40 font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all">
+                        <i class="fa-solid fa-rotate-left"></i> Ambil Kesempatan Remedial (Sisa 1x)
+                    </button>
+
+                    <div id="remedialExhaustedNotice" class="hidden text-xs text-rose-400 p-2 rounded-lg bg-rose-500/10 border border-rose-500/20">
+                        <i class="fa-solid fa-circle-info mr-1"></i> Kesempatan remedial untuk nama ini sudah habis (Maksimal 1x Remedial).
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ANTI-CHEAT VIOLATION MODAL -->
+    <div id="antiCheatModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="glass-panel max-w-sm w-full rounded-2xl p-6 border border-rose-500/50 text-center space-y-4 shadow-2xl animate-bounce-short">
+            <div class="w-14 h-14 rounded-full bg-rose-500/20 text-rose-500 border border-rose-500/40 flex items-center justify-center mx-auto text-2xl">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <div>
+                <h3 class="text-lg font-black text-white">PERINGATAN PELANGGARAN!</h3>
+                <p class="text-xs text-rose-300 mt-1">Kamu terdeteksi meninggalkan halaman tes / berpindah tab!</p>
+            </div>
+            <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 text-xs text-slate-300 space-y-1">
+                <div>Penalti Pelanggaran: <strong class="text-rose-400">-5 Poin EXP</strong></div>
+                <div>Total Frekuensi Pelanggaran: <strong id="modalViolationCount" class="text-amber-400">1</strong></div>
+            </div>
+            <button onclick="closeViolationModal()" class="w-full py-3 rounded-xl bg-rose-500 hover:bg-rose-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all">
+                Saya Mengerti & Kembali
+            </button>
+        </div>
+    </div>
+
+    <!-- DIGITAL CERTIFICATE & REPORT MODAL -->
+    <div id="certModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 hidden flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
+        <div class="max-w-3xl w-full my-auto">
+            <div class="flex justify-between items-center mb-2 px-2">
+                <span class="text-xs font-bold text-slate-400">Pratinjau Sertifikat & Laporan Hasil</span>
+                <div class="flex gap-2">
+                    <button onclick="printCertificate()" class="px-3 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 transition-colors">
+                        <i class="fa-solid fa-print"></i> Cetak A4 / Save PDF
+                    </button>
+                    <button onclick="closeCertificateModal()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs transition-colors">
+                        <i class="fa-solid fa-xmark"></i> Tutup
+                    </button>
+                </div>
+            </div>
+
+            <!-- Printable Certificate Body -->
+            <div id="printable-certificate" class="bg-slate-900 border-4 border-amber-500 p-6 sm:p-8 rounded-2xl relative overflow-hidden text-slate-100 shadow-2xl">
+                <!-- Decorative Corner Badges -->
+                <div class="absolute -top-12 -left-12 w-28 h-28 bg-amber-500/20 rounded-full blur-xl"></div>
+                <div class="absolute -bottom-12 -right-12 w-28 h-28 bg-cyan-500/20 rounded-full blur-xl"></div>
+                
+                <div class="border-2 border-dashed border-amber-500/40 p-5 sm:p-6 rounded-xl text-center space-y-4">
+                    <div class="flex items-center justify-center gap-3">
+                        <i class="fa-solid fa-award text-amber-400 text-3xl"></i>
+                        <h2 class="text-xs font-mono uppercase tracking-widest text-amber-400 font-extrabold">SERTIFIKAT & LAPORAN EVALUASI CBT</h2>
+                        <i class="fa-solid fa-gear text-cyan-400 text-2xl"></i>
+                    </div>
+
+                    <h1 class="text-xl sm:text-3xl font-black text-white uppercase tracking-wider">CERTIFICATE OF EVALUATION</h1>
+                    <p class="text-xs text-slate-400">Sertifikat dan Laporan Hasil Evaluasi ini diberikan resmi kepada:</p>
+
+                    <div class="py-1">
+                        <div id="certStudentName" class="text-xl sm:text-2xl font-black text-cyan-400 underline underline-offset-8 decoration-amber-500">
+                            BUDI PRATAMA
+                        </div>
+                        <div class="text-xs text-slate-300 mt-2 font-mono">
+                            Kelas: <span id="certStudentClass" class="font-bold text-amber-400">X TKR 1</span> | No. Absen: <span id="certStudentAbsen" class="font-bold text-amber-400">12</span>
+                        </div>
+                    </div>
+
+                    <p class="text-xs text-slate-300 max-w-lg mx-auto leading-relaxed">
+                        Telah menyelesaikan Evaluasi Pembelajaran Bahasa Inggris Otomotif Materi <strong class="text-slate-100">"Giving Suggestion and Opinion"</strong> Peminatan Teknik Kendaraan Ringan (TKR).
+                    </p>
+
+                    <!-- DETAILED SCORE REPORT TABLE FOR ALL STUDENTS -->
+                    <div class="bg-slate-950/90 rounded-xl p-4 border border-slate-800 text-xs text-slate-200 max-w-xl mx-auto space-y-2">
+                        <h3 class="font-bold text-amber-400 border-b border-slate-800 pb-1 flex items-center justify-between">
+                            <span><i class="fa-solid fa-chart-pie mr-1"></i> LAPORAN RINCIAN SKOR</span>
+                            <span id="certExamTypeBadge" class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">UTAMA</span>
+                        </h3>
+                        <div class="grid grid-cols-2 gap-2 text-left pt-1">
+                            <div>Jumlah Jawaban Benar: <strong id="certCorrect" class="text-emerald-400 font-mono">0 / 25</strong></div>
+                            <div>Jumlah Jawaban Salah: <strong id="certWrong" class="text-rose-400 font-mono">0 / 25</strong></div>
+                            <div>Jumlah Pelanggaran: <strong id="certViolations" class="text-amber-400 font-mono">0 Kali</strong></div>
+                            <div>Pengurangan Nilai: <strong id="certPenalty" class="text-rose-400 font-mono">-0 Poin</strong></div>
+                        </div>
+                        <div class="pt-2 border-t border-slate-800 flex items-center justify-between">
+                            <span class="font-bold text-slate-300">STATUS KELULUSAN: <strong id="certStatus" class="text-emerald-400 uppercase font-black ml-1">LULUS</strong></span>
+                            <div>
+                                <span class="text-xs text-slate-400 font-mono">SKOR AKHIR: </span>
+                                <span id="certScore" class="text-xl font-black text-amber-400 font-mono ml-1">0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 grid grid-cols-2 gap-4 text-xs text-slate-400 border-t border-slate-800">
+                        <div class="text-left space-y-1">
+                            <div>Tanggal Diterbitkan: <strong id="certDate" class="text-slate-200">29 September 2026</strong></div>
+                            <div>Status Verifikasi: <strong id="certVerifStatus" class="text-emerald-400">TEREKAAP & VALID</strong></div>
+                        </div>
+
+                        <div class="text-right space-y-1">
+                            <div>Guru Mata Pelajaran</div>
+                            <div class="h-8 flex items-end justify-end">
+                                <span class="font-bold text-slate-100 italic border-b border-slate-500 pb-0.5">Muhammad Miftachul Rizal, S.Pd.</span>
+                            </div>
+                            <div class="text-[10px] text-slate-500">NIP : -</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="py-3 bg-slate-900 border-t border-slate-800 text-center text-[11px] text-slate-500">
+        <p>CBT Interactive System &copy; 2026 | Teknik Kendaraan Ringan (TKR)</p>
+    </footer>
+
+    <script>
+        /* ==========================================================================
+           GOOGLE APPS SCRIPT INTEGRATION URL
+           ========================================================================== */
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz15HEbv3yzWL6MEXCDpK0OdQDl1Vnj8MCOHEItZE2vJSk7FTsJt-ieb8EPoQUTdQzE/exec";
+
+        /* ==========================================================================
+           50 QUESTION BANK DATA (35 Multiple Choice & 15 True/False)
+           Topic: Giving Suggestion and Opinion (Contextualized to TKR / Automotive)
+           ========================================================================== */
+        const QUESTION_BANK = [
+            // --- MULTIPLE CHOICE (35 Questions) ---
+            {
+                type: "MCQ",
+                context: "Engine Maintenance",
+                text: "The customer complains that his engine overheats quickly. Which suggestion is most appropriate?",
+                options: [
+                    "I suggest checking the coolant level and radiator fan.",
+                    "In my opinion, you should change the windshield wiper.",
+                    "Why don't we pump the tires to 40 PSI?",
+                    "I think you ought to paint the car bumper."
+                ],
+                answer: 0,
+                explanation: "Saran 'I suggest checking the coolant level' adalah opsi paling tepat untuk mengatasi masalah mesin cepat panas (overheat) dengan memeriksa volume cairan pendingin dan kipas radiator."
+            },
+            {
+                type: "MCQ",
+                context: "Brake System",
+                text: "Mechanic A: 'The brake pedal feels soft and spongy.'<br>Mechanic B: '__________ bleed the brake lines to remove trapped air.'",
+                options: [
+                    "I strongly suggest that we",
+                    "I disagree that we",
+                    "In my opinion, brake pedal is blue",
+                    "I do not care if we"
+                ],
+                answer: 0,
+                explanation: "Ungkapan 'I strongly suggest that we' memberikan saran logis untuk melakukan 'bleeding' (membuang angin palsu) saat pedal rem terasa empuk/bagas (spongy)."
+            },
+            {
+                type: "MCQ",
+                context: "Workshop Safety",
+                text: "What is your opinion about wearing safety shoes in the automotive workshop?",
+                options: [
+                    "In my opinion, safety shoes are vital to protect feet from heavy component drops.",
+                    "I suggest buying sandals because they are comfortable.",
+                    "I think safety shoes are unnecessary during engine overhaul.",
+                    "You should wear sneakers to run faster."
+                ],
+                answer: 0,
+                explanation: "Memberikan opini profesional bahwa sepatu keselamatan (safety shoes) sangat vital di bengkel otomotif untuk melindungi kaki dari risiko tertimpa komponen mesin yang berat."
+            },
+            {
+                type: "MCQ",
+                context: "Battery Diagnosis",
+                text: "The starter motor turns slowly and the headlights are dim. What do you suggest?",
+                options: [
+                    "I suggest testing the battery voltage and alternator output.",
+                    "I think we should replace the clutch disc immediately.",
+                    "What about washing the car exterior?",
+                    "I recommend changing the rear shock absorbers."
+                ],
+                answer: 0,
+                explanation: "Motor starter berputar lemah dan lampu redup mengindikasikan masalah kelistrikan. Memeriksa tegangan aki dan pengisian alternator adalah tindakan diagnosa pertama yang paling tepat."
+            },
+            {
+                type: "MCQ",
+                context: "Oil Change Interval",
+                text: "A client asks: 'How often should I change synthetic engine oil?' How do you express your opinion?",
+                options: [
+                    "In my view, changing synthetic oil every 10,000 km keeps the engine in top condition.",
+                    "I suggest replacing the steering wheel every month.",
+                    "I don't think engine oil is necessary for lubrication.",
+                    "You had better replace the transmission fluid every day."
+                ],
+                answer: 0,
+                explanation: "Frasa 'In my view...' digunakan untuk menyampaikan opini teknis bahwa mengganti oli sintetis secara berkala tiap 10.000 km menjaga performa optimal mesin."
+            },
+            {
+                type: "MCQ",
+                context: "Exhaust Smoke",
+                text: "The diesel engine emits thick black smoke under acceleration. What is the best suggestion?",
+                options: [
+                    "Why don't you inspect the air filter and fuel injectors?",
+                    "I suggest replacing the audio speaker system.",
+                    "In my opinion, black smoke means the tires are worn.",
+                    "You should refill the washer fluid."
+                ],
+                answer: 0,
+                explanation: "Asap hitam pekat pada mesin diesel menandakan pembakaran tidak sempurna akibat kurangnya pasokan udara (filter udara tersumbat) atau injektor bahan bakar kotor."
+            },
+            {
+                type: "MCQ",
+                context: "Tire Wear",
+                text: "The front tires show uneven wear on the inner edges. What is your opinion on the cause?",
+                options: [
+                    "In my opinion, the wheel alignment (camber/toe) needs recalibration.",
+                    "I think the radio antenna is bent.",
+                    "I suggest painting the wheel rims gold.",
+                    "You should replace the fuel filter."
+                ],
+                answer: 0,
+                explanation: "Keausan ban depan yang tidak merata di bagian dalam disebabkan oleh penyimpangan sudut kelurusan roda (camber/toe), sehingga kendaraan perlu di-spooring (wheel alignment)."
+            },
+            {
+                type: "MCQ",
+                context: "Spark Plug Inspection",
+                text: "The engine misfires on cylinder 3. What do you suggest doing first?",
+                options: [
+                    "I advise you to check the spark plug and ignition coil on cylinder 3.",
+                    "In my opinion, we must change all four road wheels.",
+                    "Why don't we adjust the side mirrors?",
+                    "I suggest refilling the gas tank with water."
+                ],
+                answer: 0,
+                explanation: "Mesin pincang/misfire pada silinder tertentu (silinder 3) membutuhkan inspeksi khusus pada busi dan koil pengapian silinder tersebut."
+            },
+            {
+                type: "MCQ",
+                context: "Transmission",
+                text: "The manual gearbox makes a grinding noise during gear shifting. What suggestion fits best?",
+                options: [
+                    "You ought to check the clutch pedal free play and transmission oil.",
+                    "In my opinion, the car needs a new air conditioner belt.",
+                    "I suggest upgrading the exhaust pipe muffler.",
+                    "Why don't we clean the car seats?"
+                ],
+                answer: 0,
+                explanation: "Suara kasar/grinding saat perpindahan gigi transmisi manual berhubungan langsung dengan kekocakan/jarak bebas pedal kopling dan kecukupan oli transmisi."
+            },
+            {
+                type: "MCQ",
+                context: "Fuel Efficiency",
+                text: "A driver complains about high fuel consumption. How do you express a suggestion?",
+                options: [
+                    "I suggest checking tire pressure and cleaning the throttle body.",
+                    "In my opinion, driving at maximum speed saves fuel.",
+                    "Why don't you remove the brakes?",
+                    "I think you should turn off the engine headlights."
+                ],
+                answer: 0,
+                explanation: "Menjaga tekanan angin ban yang sesuai dan kebersihan throttle body merupakan langkah teknis yang terbukti dapat menghemat pemakaian bahan bakar."
+            },
+            {
+                type: "MCQ",
+                context: "Car AC System",
+                text: "The air conditioner blows warm air instead of cold air. What is your opinion?",
+                options: [
+                    "In my opinion, there might be a refrigerant leak or compressor clutch issue.",
+                    "I think the radiator coolant is too cold.",
+                    "I suggest changing the power steering fluid.",
+                    "You should adjust the driver seat distance."
+                ],
+                answer: 0,
+                explanation: "AC mobil yang berhembus panas menunjukkan hilangnya cairan pendingin (refrigerant/freon) akibat kebocoran atau magnetik clutch kompresor AC tidak bekerja."
+            },
+            {
+                type: "MCQ",
+                context: "Vibration at High Speed",
+                text: "The steering wheel vibrates heavily when driving above 80 km/h. What do you suggest?",
+                options: [
+                    "I suggest performing wheel balancing and tire rotation.",
+                    "In my opinion, the engine oil level is too high.",
+                    "Why don't you replace the rear tail lights?",
+                    "I think you should turn on the hazard lights."
+                ],
+                answer: 0,
+                explanation: "Getaran pada roda kemudi pada kecepatan tinggi diselesaikan dengan melakukan balancing roda depan (wheel balancing) agar distribusi massa roda seimbang."
+            },
+            {
+                type: "MCQ",
+                context: "Tool Management",
+                text: "Junior mechanic leaves torque wrenches on the floor. How do you give a polite suggestion?",
+                options: [
+                    "I suggest you return the torque wrench to the calibration rack after use.",
+                    "In my opinion, torque wrenches belong in the trash bin.",
+                    "Why don't you drop the heavy tools on the table?",
+                    "I think you should use a hammer instead of a wrench."
+                ],
+                answer: 0,
+                explanation: "Saran profesional dalam tata kelola alat bengkel: kunci momen (torque wrench) adalah alat ukur presisi yang wajib dikembalikan ke raknya setelah dipakai agar tidak kalibrasinya terganggu."
+            },
+            {
+                type: "MCQ",
+                context: "Diagnostic Tool",
+                text: "The Check Engine Light (MIL) remains ON continuously. What do you suggest?",
+                options: [
+                    "I suggest connecting an OBD-II scanner to read the diagnostic trouble codes (DTC).",
+                    "In my opinion, we should disconnect the speedometer cable.",
+                    "Why don't we cover the light with black tape?",
+                    "I think we should replace the rear bumper."
+                ],
+                answer: 0,
+                explanation: "Lampu indikator mesin (Check Engine) yang menyala secara terus-menerus harus didiagnosa menggunakan scanner OBD-II untuk membaca kode kerusakan (DTC) pada sistem EFI."
+            },
+            {
+                type: "MCQ",
+                context: "Suspension Noise",
+                text: "There is a squeaking noise when driving over speed bumps. Express your opinion:",
+                options: [
+                    "In my opinion, the suspension bushings or shock absorbers are worn out.",
+                    "I suggest checking the windshield washer fluid level.",
+                    "I think the alternator belt is too tight.",
+                    "Why don't you replace the brake pedal pad?"
+                ],
+                answer: 0,
+                explanation: "Suara mencicit/berdecit saat melintasi jalan bergelombang menandakan karet pembungkus suspensi (bushing karet) atau penyerap kejutan (shock absorber) sudah aus/kering."
+            },
+            {
+                type: "MCQ",
+                context: "Automotive Phraseology",
+                text: "Which of the following phrases is used to ASK for an opinion?",
+                options: [
+                    "What is your opinion regarding this electric vehicle engine?",
+                    "In my opinion, electric vehicles are quiet.",
+                    "I suggest buying an electric scanner.",
+                    "You had better disconnect the negative battery terminal."
+                ],
+                answer: 0,
+                explanation: "Frasa 'What is your opinion regarding...?' (Apa pendapat Anda mengenai...?) digunakan secara khusus untuk MEMINTA pendapat (asking for opinion)."
+            },
+            {
+                type: "MCQ",
+                context: "Automotive Phraseology",
+                text: "Which of the following phrases is used to GIVE a suggestion?",
+                options: [
+                    "I strongly advise you to check the brake fluid level before long drives.",
+                    "Do you think this chassis is durable?",
+                    "What do you feel about this engine design?",
+                    "In my opinion, red cars are faster."
+                ],
+                answer: 0,
+                explanation: "Frasa 'I strongly advise you to...' (Saya sangat menyarankan Anda untuk...) digunakan untuk MEMBERIKAN saran atau rekomendasi."
+            },
+            {
+                type: "MCQ",
+                context: "Hydraulic Jack",
+                text: "A mechanic lifts a vehicle with a hydraulic jack without floor stands. What do you suggest?",
+                options: [
+                    "You should always place jack stands under the chassis before working under the car.",
+                    "In my opinion, hydraulic jacks never fail.",
+                    "Why don't you remove all wheels at once without support?",
+                    "I suggest shaking the vehicle while on the jack."
+                ],
+                answer: 0,
+                explanation: "Dongkrak hidrolik bersifat menaikkan sementara. Wajib menopang sasis kendaraan dengan jack stand sebelum teknisi bekerja di bawah kolong demi keselamatan jiwa."
+            },
+            {
+                type: "MCQ",
+                context: "Timing Belt",
+                text: "The timing belt has reached 100,000 km usage. What is the recommended suggestion?",
+                options: [
+                    "I suggest replacing the timing belt to avoid catastrophic valve damage.",
+                    "In my opinion, timing belts last forever.",
+                    "Why don't you spray lubricant on the timing belt teeth?",
+                    "I think you should ignore the odometer reading."
+                ],
+                answer: 0,
+                explanation: "Timing belt yang putus saat mesin berputar dapat menyebabkan tabrakan fatal antara katup (valve) dan piston. Penggantian wajib dilakukan sesuai batas kilometer."
+            },
+            {
+                type: "MCQ",
+                context: "Radiator Cap",
+                text: "The engine is boiling hot. A apprentice wants to open the radiator cap immediately. What do you suggest?",
+                options: [
+                    "I strongly suggest waiting until the engine cools down to prevent severe burns.",
+                    "In my opinion, opening hot caps improves cooling.",
+                    "Why don't you pour cold water over the hot cap instantly?",
+                    "I think you should use your bare hands."
+                ],
+                answer: 0,
+                explanation: "Membuka tutup radiator saat mesin panas sangat berbahaya karena cairan pendingin bertekanan tinggi akan menyembur dan menyebabkan luka bakar serius."
+            },
+            {
+                type: "MCQ",
+                context: "Exhaust Leak",
+                text: "There is a loud roaring sound coming from under the vehicle chassis. What is your opinion?",
+                options: [
+                    "In my opinion, there is a leak or crack in the exhaust manifold or pipe.",
+                    "I suggest checking the tire tread depth.",
+                    "I think the rear view mirror is loose.",
+                    "Why don't you refill the battery water?"
+                ],
+                answer: 0,
+                explanation: "Suara raungan keras dari bawah sasis menandakan adanya kebocoran atau retakan pada pipa/manifold sistem gas buang (knalpot)."
+            },
+            {
+                type: "MCQ",
+                context: "Clutch Slipping",
+                text: "Engine RPM rises quickly when accelerating, but the vehicle speed gains slowly. What do you suggest?",
+                options: [
+                    "I suggest inspecting and replacing the clutch friction disc.",
+                    "In my opinion, the headlights need alignment.",
+                    "Why don't you tighten the wheel lug nuts?",
+                    "I think you should change the cabin air filter."
+                ],
+                answer: 0,
+                explanation: "RPM mesin naik cepat tetapi laju mobil lambat merupakan gejala khas kopling selip yang disebabkan oleh keausan kampas kopling (clutch disc)."
+            },
+            {
+                type: "MCQ",
+                context: "Power Steering",
+                text: "The steering wheel is extremely heavy to turn at low speeds. What is your suggestion?",
+                options: [
+                    "I suggest checking the power steering fluid level and pump belt.",
+                    "In my opinion, the car needs a new rear bumper.",
+                    "Why don't you wash the windshield?",
+                    "I think you should replace the spark plugs."
+                ],
+                answer: 0,
+                explanation: "Setir berat diputar menunjukkan kurangnya minyak power steering atau kendurnya sabuk pemutar pompa power steering."
+            },
+            {
+                type: "MCQ",
+                context: "EV Maintenance",
+                text: "What is your opinion on servicing high-voltage components in Hybrid/Electric Vehicles?",
+                options: [
+                    "In my opinion, technicians must wear certified high-voltage insulated gloves.",
+                    "I suggest touching the orange cables with bare hands.",
+                    "I think safety precautions are optional for EV systems.",
+                    "Why don't we submerge the battery in water?"
+                ],
+                answer: 0,
+                explanation: "Sistem tegangan tinggi pada mobil listrik/hybrid sangat berbahaya. Teknisi wajib memakai sarung tangan isolasi khusus berstandar keselamatan tinggi."
+            },
+            {
+                type: "MCQ",
+                context: "Engine Knocking",
+                text: "A metallic pinging noise occurs when accelerating uphill. What do you suggest?",
+                options: [
+                    "I suggest using higher-octane fuel and checking ignition timing.",
+                    "In my opinion, the windshield wiper blades are dry.",
+                    "Why don't you inflate the tires higher?",
+                    "I think you should change the brake pads."
+                ],
+                answer: 0,
+                explanation: "Suara ngelitik (knocking/detonasi) saat beban mesin tinggi diatasi dengan menggunakan BBM beroktan lebih tinggi dan menyesuaikan sudut pengapian."
+            },
+            {
+                type: "MCQ",
+                context: "Car Horn Issue",
+                text: "The horn does not sound when pressed on the steering wheel. What do you suggest?",
+                options: [
+                    "I suggest testing the horn relay, fuse, and horn wiring circuit.",
+                    "In my opinion, the engine oil filter is clogged.",
+                    "Why don't you replace the shock absorbers?",
+                    "I think you should repaint the doors."
+                ],
+                answer: 0,
+                explanation: "Pengecekan kelistrikan klakson mencakup pemeriksaan sekering (fuse), sakelar/relay, dan keutuhan jalur kabel."
+            },
+            {
+                type: "MCQ",
+                context: "Phrasing Choice",
+                text: "Complete the sentence: 'From my point of view, __________ engine oil prolongs engine lifespan.'",
+                options: [
+                    "regularly changing the",
+                    "never replacing the",
+                    "pouring sand into the",
+                    "draining all"
+                ],
+                answer: 0,
+                explanation: "Pilihan 'regularly changing the' (rutin mengganti) melengkapi opini logis bahwa perawatan oli teratur memperpanjang usia pakai mesin."
+            },
+            {
+                type: "MCQ",
+                context: "Workshop Ergonomics",
+                text: "Mechanics complain about back strain during engine reassembly. What is your suggestion?",
+                options: [
+                    "I suggest using an adjustable engine crane and hydraulic bench.",
+                    "In my opinion, lifting heavy cylinder blocks manually is good.",
+                    "Why don't you bend your back without bending knees?",
+                    "I think tools should be kept far from the bench."
+                ],
+                answer: 0,
+                explanation: "Saran ergonomi kerja: menggunakan derek mesin (engine crane) dan meja angkat hidrolik mencegah cedera tulang belakang saat mengangkat blok silinder yang berat."
+            },
+            {
+                type: "MCQ",
+                context: "Vehicle Inspection",
+                text: "A customer wants to buy a second-hand vehicle. What is your opinion on pre-purchase inspection?",
+                options: [
+                    "In my opinion, a complete diagnostic scanner check and chassis inspection is essential.",
+                    "I suggest buying the car based only on its paint color.",
+                    "I think inspecting second-hand cars is a waste of time.",
+                    "Why don't you ignore the vehicle history?"
+                ],
+                answer: 0,
+                explanation: "Pemeriksaan menyeluruh mencakup scan komputer dan inspeksi sasis sangat vital sebelum membeli mobil bekas untuk mendeteksi bekas tabrakan atau kerusakan tersembunyi."
+            },
+            {
+                type: "MCQ",
+                context: "Turbocharger",
+                text: "The vehicle loses power and produces a high-pitched whining noise under acceleration. What do you suggest?",
+                options: [
+                    "I suggest inspecting the turbocharger shaft play and intercooler hoses.",
+                    "In my opinion, the door hinges need grease.",
+                    "Why don't you replace the fuel tank cap?",
+                    "I think the air freshener is empty."
+                ],
+                answer: 0,
+                explanation: "Suara dengung/siulan tinggi disertai kehilangan tenaga mengindikasikan kelonggaran poros turbocharger atau kebocoran selang udara intercooler."
+            },
+            {
+                type: "MCQ",
+                context: "Wheel Lug Nuts",
+                text: "Which expression gives a proper recommendation on tightening wheel lug nuts?",
+                options: [
+                    "You ought to use a calibrated torque wrench in a criss-cross pattern.",
+                    "In my opinion, lug nuts should be tightened loosely by hand.",
+                    "I suggest using a hammer to tighten lug nuts.",
+                    "Why don't you remove two lug nuts to save weight?"
+                ],
+                answer: 0,
+                explanation: "Pengencangan mur roda wajib memakai kunci momen yang terkalibrasi dengan urutan menyilang (criss-cross) agar tekanan velg pada tromol rata."
+            },
+            {
+                type: "MCQ",
+                context: "Air Filter Maintenance",
+                text: "The air filter is filled with dust and debris. What do you suggest?",
+                options: [
+                    "I suggest cleaning it with compressed air or replacing it with a new filter element.",
+                    "In my opinion, dust in the filter improves airflow.",
+                    "Why don't you wash the paper filter with heavy oil?",
+                    "I think you should remove the filter and drive without it."
+                ],
+                answer: 0,
+                explanation: "Filter udara yang berdebu disemprot menggunakan udara bertekanan dari arah dalam ke luar, atau diganti baru jika elemen penyaring sudah sangat kotor."
+            },
+            {
+                type: "MCQ",
+                context: "Automotive Terminology",
+                text: "Expressing an opinion: 'To my mind, modern EFI (Electronic Fuel Injection) engines are __________ than carburetor engines.'",
+                options: [
+                    "far more fuel-efficient and cleaner",
+                    "much worse at fuel economy",
+                    "impossible to diagnose",
+                    "slower in throttle response"
+                ],
+                answer: 0,
+                explanation: "Sistem EFI mengontrol campuran bahan bakar secara presisi melalui ECU, sehingga jauh lebih irit dan menghasilkan emisi gas buang lebih bersih daripada karburator."
+            },
+            {
+                type: "MCQ",
+                context: "Brake Fluid",
+                text: "Brake fluid turned dark brown and contains moisture. What do you suggest?",
+                options: [
+                    "I suggest flushing the brake system and refilling with fresh DOT4 brake fluid.",
+                    "In my opinion, dark brake fluid performs better.",
+                    "Why don't you mix water into the brake fluid reservoir?",
+                    "I think you should ignore brake fluid changes."
+                ],
+                answer: 0,
+                explanation: "Minyak rem yang keruh/cokelat tua menandakan kontaminasi air yang merusak titik didih rem. Wajib dikuras (flushing) dan diganti minyak rem DOT baru."
+            },
+            {
+                type: "MCQ",
+                context: "Cooling Fan",
+                text: "The electric radiator fan does not turn on when engine temperature rises. What is your suggestion?",
+                options: [
+                    "I suggest checking the thermoswitch, fan relay, and cooling fan motor.",
+                    "In my opinion, the car stereo is faulty.",
+                    "Why don't you open the car trunk?",
+                    "I think you should adjust the headlights."
+                ],
+                answer: 0,
+                explanation: "Kipas radiator elektrik yang mati membutuhkan pengecekan sakelar suhu (thermoswitch), relay kipas, fuse, serta kelayakan motor kipas itu sendiri."
+            },
+
+            // --- TRUE / FALSE (15 Questions) ---
+            {
+                type: "TF",
+                context: "Grammar & Expression",
+                text: "The sentence 'In my opinion, you should check the tire pressure' combines both giving an opinion and giving a suggestion.",
+                options: ["TRUE (Benar)", "FALSE (Salah)"],
+                answer: 0,
+                explanation: "BENAR: 'In my opinion' merupakan frasa untuk menyampaikan pendapat (opinion) dan 'you should check' adalah frasa untuk memberikan saran (suggestion)."
+            },
+            {
+                type: "TF",
+                context: "Grammar & Expression",
+                text: "'How about replacing the alternator belt?' is an expression used to GIVE a suggestion.",
+                options: ["TRUE (Benar)", "FALSE (Salah)"],
+                answer: 0,
+                explanation: "BENAR: Pola kalimat 'How about + V-ing...?' adalah bentuk frasa standar dalam bahasa Inggris yang digunakan untuk memberikan saran."
+            },
+            {
+                type: "TF",
+                context: "Technical Context",
+                text: "Saying 'I suggest pouring water into the engine oil filler cap' is a safe and correct automotive recommendation.",
+                options: ["TRUE (Benar)", "FALSE (Salah)"],
+                answer: 1,
+                explanation: "SALAH: Memasukkan air ke dalam lubang oli mesin adalah kesalahan fatal yang akan merusak sistem pelumasan dan menyebabkan mesin macet (engine seizure)!"
+            },
+            {
+                type: "TF",
+                context: "Grammar & Expression",
+                text: "'What is your view on synthetic lubricants?' is used to GIVE an opinion.",
+                options: ["TRUE (Benar)", "FALSE (Salah)"],
+                answer: 1,
+                explanation: "SALAH: Ungkapan 'What is your view on...?' digunakan untuk MEMINTA pendapat (Asking for opinion), bukan untuk memberikan pendapat."
+            },
+            {
+                type: "TF",
+                context: "Workshop Safety",
+                text: "'In my opinion, using jack stands is optional when working under a 2-ton car' is a valid safety recommendation.",
+                options: ["TRUE (Benar)", "FALSE (Salah)"],
+                answer: 1,
+                explanation: "SALAH: Penggunaan jack stand bersifat WAJIB demi keselamatan teknisi saat bekerja di bawah kolong mobil, bukan opsional."
+            },
+            {
+                type: "TF",
+                context: "Grammar & Expression",
+                text: "The phrase 'I strongly advise you to wear safety goggles during grinding' is an expression of giving a suggestion.",
+                options: ["TRUE (Benar)", "FALSE (Salah)"],
+                answer: 0,
+                explanation: "BENAR: Frasa 'I strongly advise you to...' (Saya sangat menyarankan Anda...) merupakan ekspresi formal dalam memberikan saran."
+            },
+            {
+                type: "TF",
+                context: "Technical Context",
+                text: "Suggesting a wheel alignment after replacing worn steering tie-rod ends is good mechanical practice.",
+                options: ["TRUE (Benar)", "FALSE (Salah)"],
+                answer: 0,
+                explanation: "BENAR: Penggantian tie-rod end akan mengubah setelan jarak kelurusan roda (toe-in/toe-out), sehingga wheel alignment (spooring) wajib dilakukan."
+            },
+            {
+                type: "TF",
+                context: "Grammar & Expression",
+                text: "'Personally, I think modern diagnostic tools save a lot of troubleshooting time' is an opinion.",
+                options: ["TRUE (Benar)", "FALSE (Salah)"],
+                answer: 0,
+                explanation: "BENAR: Frasa 'Personally, I think...' (Secara pribadi, saya berpendapat...) digunakan untuk menyatakan pendapat pribadi."
+            },
+            {
+                type: "TF",
+                context: "Technical Context",
+                text: "'Why don't we disconnect the negative battery cable before working on electrical wiring?' is a valid safety suggestion.",
+                options: ["TRUE (Benar)", "FALSE (Salah)"],
+                answer: 0,
+                explanation: "BENAR: Melepas kabel negatif baterai sebelum perbaikan kelistrikan adalah prosedur wajib untuk mencegah hubungan arus pendek (korsleting)."
+            },
+            {
+                type: "TF",
+                context: "Grammar & Expression",
+                text: "'You had better check the brake fluid' implies a strong recommendation or warning.",
+                options: ["TRUE (Benar)", "FALSE (Salah)"],
+                answer: 0,
+                explanation: "BENAR: Frasa 'had better' menyatakan saran yang kuat beserta implikasi risiko jika saran tersebut diabaikan."
+            },
+            {
+                type: "TF",
+                context: "Technical Context",
+                text: "If an engine misfires, suggesting to inspect the spark plugs and fuel injectors is completely irrelevant.",
+                options: ["TRUE (Benar)", "FALSE (Salah)"],
+                answer: 1,
+                explanation: "SALAH: Mesin misfire (pincang) langsung disebabkan oleh masalah pada sistem pengapian (busi/koil) atau pasokan bahan bakar (injektor)."
+            },
+            {
+                type: "TF",
+                context: "Grammar & Expression",
+                text: "'To my mind' has the same function as 'In my opinion'.",
+                options: ["TRUE (Benar)", "FALSE (Salah)"],
+                answer: 0,
+                explanation: "BENAR: Kedua ungkapan tersebut ('To my mind' dan 'In my opinion') memiliki arti dan fungsi yang persis sama, yaitu menyatakan pendapat."
+            },
+            {
+                type: "TF",
+                context: "Workshop Safety",
+                text: "Suggesting to smoke cigarettes near the gasoline cleaning tank is an acceptable workshop opinion.",
+                options: ["TRUE (Benar)", "FALSE (Salah)"],
+                answer: 1,
+                explanation: "SALAH: Merokok di dekat penampungan bensin/bahan bakar sangat dilarang keras karena berisiko memicu kebakaran dan ledakan hebat."
+            },
+            {
+                type: "TF",
+                context: "Grammar & Expression",
+                text: "'I suggest you to changing the filter' is grammatically correct English.",
+                options: ["TRUE (Benar)", "FALSE (Salah)"],
+                answer: 1,
+                explanation: "SALAH: Tata bahasa yang benar adalah 'I suggest changing the filter' atau 'I suggest that you change the filter'."
+            },
+            {
+                type: "TF",
+                context: "Technical Context",
+                text: "Giving an opinion that dirty cabin air filters decrease AC airflow efficiency is technically correct.",
+                options: ["TRUE (Benar)", "FALSE (Salah)"],
+                answer: 0,
+                explanation: "BENAR: Filter kabin AC yang kotor dan tersumbat debu menghambat hembusan angin dari blower, sehingga pendinginan kabin menjadi tidak maksimal."
+            }
+        ];
+
+        /* ==========================================================================
+           STATE MANAGEMENT & REMEDIAL TRACKING
+           ========================================================================== */
+        let studentData = { name: '', class: '', absen: '' };
+        let currentQuizSet = []; 
+        let currentQIndex = 0;
+        let userAnswers = {}; 
+        let retryQueue = []; 
+        let isRetryPhase = false;
+        let examTypeLabel = "UTAMA"; // "UTAMA" or "REMEDIAL"
+        
+        let expScore = 100;
+        let violationCount = 0;
+        let audioMuted = false;
+        let examActive = false;
+
+        /* Remedial History helper */
+        function getStudentAttemptKey(name) {
+            return 'cbt_quiz3_attempt_' + name.toLowerCase().trim().replace(/\s+/g, '_');
+        }
+
+        function getStudentAttempts(name) {
+            const key = getStudentAttemptKey(name);
+            const val = localStorage.getItem(key);
+            return val ? parseInt(val, 10) : 0; // 0 = not started, 1 = completed Utama, 2 = completed Remedial
+        }
+
+        function incrementStudentAttempt(name) {
+            const key = getStudentAttemptKey(name);
+            const current = getStudentAttempts(name);
+            localStorage.setItem(key, current + 1);
+        }
+
+        /* ==========================================================================
+           AUDIO SYSTEM
+           ========================================================================== */
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        let audioCtx = null;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new AudioCtx();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function playSound(type) {
+            if (audioMuted) return;
+            try {
+                initAudio();
+                const now = audioCtx.currentTime;
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                if (type === 'click') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(600, now);
+                    osc.frequency.exponentialRampToValueAtTime(800, now + 0.05);
+                    gain.gain.setValueAtTime(0.15, now);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 0.05);
+                    osc.start(now);
+                    osc.stop(now + 0.05);
+                } else if (type === 'select') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(440, now);
+                    osc.frequency.exponentialRampToValueAtTime(880, now + 0.08);
+                    gain.gain.setValueAtTime(0.2, now);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 0.08);
+                    osc.start(now);
+                    osc.stop(now + 0.08);
+                } else if (type === 'warning') {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(200, now);
+                    osc.frequency.linearRampToValueAtTime(120, now + 0.25);
+                    gain.gain.setValueAtTime(0.3, now);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 0.25);
+                    osc.start(now);
+                    osc.stop(now + 0.25);
+                } else if (type === 'pass') {
+                    [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
+                        const o = audioCtx.createOscillator();
+                        const g = audioCtx.createGain();
+                        o.type = 'sine';
+                        o.frequency.setValueAtTime(freq, now + idx * 0.08);
+                        g.gain.setValueAtTime(0.2, now + idx * 0.08);
+                        g.gain.linearRampToValueAtTime(0.01, now + idx * 0.08 + 0.3);
+                        o.connect(g);
+                        g.connect(audioCtx.destination);
+                        o.start(now + idx * 0.08);
+                        o.stop(now + idx * 0.08 + 0.3);
+                    });
+                } else if (type === 'fail') {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(300, now);
+                    osc.frequency.linearRampToValueAtTime(150, now + 0.4);
+                    gain.gain.setValueAtTime(0.3, now);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 0.4);
+                    osc.start(now);
+                    osc.stop(now + 0.4);
+                }
+            } catch (e) {
+                console.warn('Audio error:', e);
+            }
+        }
+
+        function toggleAudio() {
+            audioMuted = !audioMuted;
+            const icon = document.getElementById('soundIcon');
+            if (audioMuted) {
+                icon.className = 'fa-solid fa-volume-xmark text-rose-400';
+            } else {
+                icon.className = 'fa-solid fa-volume-high text-amber-400';
+                playSound('click');
+            }
+        }
+
+        function shuffleArray(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function generate25Questions() {
+            const shuffledBank = shuffleArray(QUESTION_BANK);
+            const selected = shuffledBank.slice(0, 25);
+
+            return selected.map(q => {
+                if (q.type === 'MCQ') {
+                    const originalOptions = q.options.map((opt, idx) => ({ text: opt, isCorrect: idx === q.answer }));
+                    const shuffledOpts = shuffleArray(originalOptions);
+                    const newCorrectIndex = shuffledOpts.findIndex(item => item.isCorrect);
+                    return {
+                        ...q,
+                        options: shuffledOpts.map(item => item.text),
+                        answer: newCorrectIndex
+                    };
+                }
+                return { ...q };
+            });
+        }
+
+        function startExam(e) {
+            e.preventDefault();
+            initAudio();
+            playSound('click');
+
+            const nameInput = document.getElementById('studentName').value.trim();
+            studentData.name = nameInput;
+            studentData.class = document.getElementById('studentClass').value;
+            studentData.absen = document.getElementById('studentAbsen').value;
+
+            if (!studentData.name || !studentData.absen) return;
+
+            // Check Remedial Attempt Limits (Max 1x Remedial, so total 2 attempts)
+            const attempts = getStudentAttempts(studentData.name);
+            if (attempts >= 2) {
+                alert(`Siswa atas nama "${studentData.name}" telah menggunakan Ujian Utama dan 1x Ujian Remedial (Batas Maksimal Tercapai). tidak dapat mengulang lagi.`);
+                return;
+            }
+
+            if (attempts === 1) {
+                examTypeLabel = "REMEDIAL";
+            } else {
+                examTypeLabel = "UTAMA";
+            }
+
+            // Prepare Exam State
+            currentQuizSet = generate25Questions();
+            currentQIndex = 0;
+            userAnswers = {};
+            retryQueue = [];
+            isRetryPhase = false;
+            expScore = 100;
+            violationCount = 0;
+            examActive = true;
+
+            // Update UI HUD
+            document.getElementById('hudExpScore').innerText = expScore;
+            document.getElementById('hudViolationCount').innerText = violationCount;
+
+            // Transition Screens
+            document.getElementById('landingPage').classList.add('hidden');
+            document.getElementById('quizPage').classList.remove('hidden');
+
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = currentQuizSet[currentQIndex];
+            
+            // Progress Update
+            document.getElementById('currentQNum').innerText = currentQIndex + 1;
+            const progressPct = ((currentQIndex + 1) / currentQuizSet.length) * 100;
+            document.getElementById('progressBar').style.width = `${progressPct}%`;
+
+            // Badge & Context
+            const typeBadge = document.getElementById('questionTypeBadge');
+            typeBadge.innerText = q.type === 'MCQ' ? 'Pilihan Ganda' : 'Benar / Salah';
+            typeBadge.className = q.type === 'MCQ' 
+                ? 'px-2.5 py-1 rounded-md text-[10px] font-bold tracking-wider uppercase bg-cyan-500/10 text-cyan-400 border border-cyan-500/30'
+                : 'px-2.5 py-1 rounded-md text-[10px] font-bold tracking-wider uppercase bg-amber-500/10 text-amber-400 border border-amber-500/30';
+            
+            document.getElementById('questionContext').innerText = q.context;
+            document.getElementById('questionText').innerHTML = `${currentQIndex + 1}. ${q.text}`;
+
+            // Render Options
+            const container = document.getElementById('optionsContainer');
+            container.innerHTML = '';
+
+            const prefixes = ['A', 'B', 'C', 'D'];
+
+            q.options.forEach((optText, optIndex) => {
+                const isSelected = userAnswers[currentQIndex] === optIndex;
+                const optionBtn = document.createElement('button');
+                optionBtn.type = 'button';
+                optionBtn.onclick = () => selectOption(optIndex);
+
+                optionBtn.className = `w-full text-left p-3.5 rounded-xl border transition-all flex items-center gap-3 ${
+                    isSelected 
+                        ? 'bg-cyan-500/20 border-cyan-400 text-white shadow-lg shadow-cyan-500/10 ring-1 ring-cyan-400' 
+                        : 'bg-slate-900 hover:bg-slate-800 border-slate-800 text-slate-300'
+                }`;
+
+                const prefixLabel = q.type === 'MCQ' ? prefixes[optIndex] : (optIndex === 0 ? 'T' : 'F');
+
+                optionBtn.innerHTML = `
+                    <div class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs shrink-0 ${
+                        isSelected ? 'bg-cyan-500 text-slate-950' : 'bg-slate-800 text-slate-400'
+                    }">${prefixLabel}</div>
+                    <div class="text-xs sm:text-sm font-medium leading-normal">${optText}</div>
+                `;
+                container.appendChild(optionBtn);
+            });
+
+            // Navigation Buttons
+            document.getElementById('prevBtn').disabled = (currentQIndex === 0);
+            
+            const nextBtn = document.getElementById('nextBtn');
+            if (currentQIndex === currentQuizSet.length - 1) {
+                nextBtn.innerHTML = `<span>SELESAIKAN QUIZ</span> <i class="fa-solid fa-check"></i>`;
+                nextBtn.className = "px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs transition-colors flex items-center gap-1.5 shadow-md shadow-emerald-500/20";
+            } else {
+                nextBtn.innerHTML = `<span>SELANJUTNYA</span> <i class="fa-solid fa-arrow-right"></i>`;
+                nextBtn.className = "px-5 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs transition-colors flex items-center gap-1.5 shadow-md shadow-cyan-500/20";
+            }
+        }
+
+        function selectOption(optIndex) {
+            userAnswers[currentQIndex] = optIndex;
+            playSound('select');
+            renderQuestion();
+        }
+
+        function prevQuestion() {
+            if (currentQIndex > 0) {
+                currentQIndex--;
+                playSound('click');
+                renderQuestion();
+            }
+        }
+
+        function nextQuestion() {
+            if (userAnswers[currentQIndex] === undefined) {
+                alert('Silakan pilih salah satu jawaban terlebih dahulu!');
+                return;
+            }
+
+            playSound('click');
+
+            if (currentQIndex < currentQuizSet.length - 1) {
+                currentQIndex++;
+                renderQuestion();
+            } else {
+                evaluateMainStage();
+            }
+        }
+
+        function evaluateMainStage() {
+            retryQueue = [];
+            currentQuizSet.forEach((q, idx) => {
+                if (userAnswers[idx] !== q.answer) {
+                    retryQueue.push({ questionIndex: idx, questionObj: q });
+                }
+            });
+
+            if (retryQueue.length > 0 && !isRetryPhase) {
+                document.getElementById('quizPage').classList.add('hidden');
+                document.getElementById('retryPage').classList.remove('hidden');
+                document.getElementById('retryCountText').innerText = retryQueue.length;
+                document.getElementById('retryTotalNum').innerText = `${retryQueue.length} Soal`;
+                playSound('warning');
+            } else {
+                calculateFinalResults();
+            }
+        }
+
+        function startRetryStage() {
+            isRetryPhase = true;
+            document.getElementById('retryPage').classList.add('hidden');
+            document.getElementById('quizPage').classList.remove('hidden');
+
+            currentQuizSet = retryQueue.map(item => item.questionObj);
+            userAnswers = {};
+            currentQIndex = 0;
+
+            renderQuestion();
+        }
+
+        function calculateFinalResults() {
+            examActive = false;
+
+            // Increment completed attempts in storage
+            incrementStudentAttempt(studentData.name);
+            const currentAttempts = getStudentAttempts(studentData.name);
+
+            // Calculate correct & wrong counts
+            let correctCount = 0;
+            currentQuizSet.forEach((q, idx) => {
+                if (userAnswers[idx] === q.answer) {
+                    correctCount++;
+                }
+            });
+
+            const wrongCount = 25 - correctCount;
+
+            // Score Formula: (Correct / 25 * 100) - (Violations * 5)
+            const rawScore = Math.round((correctCount / 25) * 100);
+            const penalty = violationCount * 5;
+            const finalScore = Math.max(0, rawScore - penalty);
+
+            const isPassed = finalScore >= 70;
+            const statusLabel = isPassed ? "LULUS" : "REMEDIAL";
+
+            // Render Results Screen
+            document.getElementById('quizPage').classList.add('hidden');
+            document.getElementById('resultsPage').classList.remove('hidden');
+
+            document.getElementById('resCorrectScore').innerText = `${correctCount} / 25`;
+            document.getElementById('resWrongScore').innerText = `${wrongCount} / 25`;
+            document.getElementById('resViolations').innerText = `${violationCount} (-${penalty})`;
+            document.getElementById('resFinalScore').innerText = finalScore;
+
+            const badgeHeader = document.getElementById('passBadgeHeader');
+            const certBtn = document.getElementById('certBtn');
+            const retakeBtn = document.getElementById('retakeBtn');
+            const statusMsg = document.getElementById('statusMessage');
+            const exhaustedNotice = document.getElementById('remedialExhaustedNotice');
+
+            if (isPassed) {
+                playSound('pass');
+                badgeHeader.className = "inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/40";
+                badgeHeader.innerHTML = `<i class="fa-solid fa-circle-check"></i> SELAMAT! ANDA LULUS (KKM: 70)`;
+                
+                statusMsg.innerHTML = `<strong class="text-emerald-400">LUAR BIASA!</strong> Anda memenuhi batas KKM. Sertifikat & Laporan Hasil resmi telah diterbitkan dan dapat diunduh/dicetak.`;
+                retakeBtn.classList.add('hidden');
+                exhaustedNotice.classList.add('hidden');
+            } else {
+                playSound('fail');
+                badgeHeader.className = "inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-rose-500/20 text-rose-400 border border-rose-500/40";
+                badgeHeader.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> BELUM LULUS (KKM: 70)`;
+
+                if (currentAttempts < 2) {
+                    statusMsg.innerHTML = `<strong class="text-rose-400">PERHATIAN:</strong> Nilai Anda (${finalScore}) di bawah KKM. Anda memiliki <strong class="text-amber-400">1x kesempatan Remedial</strong> tersisa. Sertifikat & Laporan Hasil tetap dapat diunduh sekarang.`;
+                    retakeBtn.classList.remove('hidden');
+                    exhaustedNotice.classList.add('hidden');
+                } else {
+                    statusMsg.innerHTML = `<strong class="text-rose-400">PERHATIAN:</strong> Nilai Anda (${finalScore}) di bawah KKM. Kesempatan remedial untuk nama ini sudah habis (Maksimal 1x Remedial). Sertifikat & Laporan Hasil tetap dapat diunduh.`;
+                    retakeBtn.classList.add('hidden');
+                    exhaustedNotice.classList.remove('hidden');
+                }
+            }
+
+            // Sertifikat SELALU TAMPIL untuk semua siswa
+            certBtn.classList.remove('hidden');
+
+            // Populate Certificate & Report Data
+            document.getElementById('certStudentName').innerText = studentData.name.toUpperCase();
+            document.getElementById('certStudentClass').innerText = studentData.class;
+            document.getElementById('certStudentAbsen').innerText = studentData.absen;
+            document.getElementById('certScore').innerText = finalScore;
+            document.getElementById('certCorrect').innerText = `${correctCount} / 25`;
+            document.getElementById('certWrong').innerText = `${wrongCount} / 25`;
+            document.getElementById('certViolations').innerText = `${violationCount} Kali`;
+            document.getElementById('certPenalty').innerText = `-${penalty} Poin`;
+            document.getElementById('certExamTypeBadge').innerText = examTypeLabel;
+
+            const certStatusEl = document.getElementById('certStatus');
+            certStatusEl.innerText = statusLabel;
+            certStatusEl.className = isPassed ? "text-emerald-400 uppercase font-black ml-1" : "text-rose-400 uppercase font-black ml-1";
+            
+            const today = new Date();
+            const dateStr = today.toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' });
+            document.getElementById('certDate').innerText = dateStr;
+
+            // AUTOMATIC REKAP TO GOOGLE APPS SCRIPT
+            const now = new Date();
+            const waktuFormatted = now.toLocaleString('id-ID', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+
+            sendDataToAppsScript({
+                waktu: waktuFormatted,
+                timestamp: now.toISOString(),
+                nama: studentData.name,
+                kelas: studentData.class,
+                absen: studentData.absen,
+                tipe_ujian: examTypeLabel,
+                jumlah_skor_benar: correctCount,
+                jumlah_skor_salah: wrongCount,
+                jumlah_pelanggaran: violationCount,
+                pengurangan_skor_pelanggaran: penalty,
+                skor_akhir: finalScore,
+                status: statusLabel,
+                // Kunci alternatif untuk kompatibilitas script
+                benar: correctCount,
+                salah: wrongCount,
+                pelanggaran: violationCount,
+                pengurangan_nilai: penalty
+            });
+        }
+
+        /* Send payload to Google Apps Script Web App */
+        function sendDataToAppsScript(payload) {
+            const syncEl = document.getElementById('syncStatus');
+            syncEl.innerHTML = `<i class="fa-solid fa-spinner fa-spin text-cyan-400"></i> <span>Mengirim data rekap ke Google Apps Script...</span>`;
+            syncEl.className = "text-[11px] text-slate-400 flex items-center justify-center gap-2 py-1";
+
+            fetch(APPS_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                syncEl.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i> <span class="text-emerald-400 font-semibold">Data rekap berhasil tersimpan ke Apps Script / Spreadsheet!</span>`;
+            })
+            .catch((err) => {
+                console.error("Gagal mengirim ke Apps Script:", err);
+                syncEl.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-amber-400"></i> <span class="text-amber-400">Proses kirim data selesai.</span>`;
+            });
+        }
+
+        function resetExamForRemedial() {
+            const attempts = getStudentAttempts(studentData.name);
+            if (attempts >= 2) {
+                alert("Kesempatan remedial untuk nama ini sudah digunakan (Maksimal 1x Remedial).");
+                return;
+            }
+
+            playSound('click');
+            document.getElementById('resultsPage').classList.add('hidden');
+            document.getElementById('quizPage').classList.remove('hidden');
+
+            examTypeLabel = "REMEDIAL";
+            currentQuizSet = generate25Questions();
+            currentQIndex = 0;
+            userAnswers = {};
+            retryQueue = [];
+            isRetryPhase = false;
+            expScore = 100;
+            violationCount = 0;
+            examActive = true;
+
+            document.getElementById('hudExpScore').innerText = expScore;
+            document.getElementById('hudViolationCount').innerText = violationCount;
+
+            renderQuestion();
+        }
+
+        function triggerViolation() {
+            if (!examActive) return;
+
+            violationCount++;
+            expScore = Math.max(0, expScore - 5);
+
+            document.getElementById('hudExpScore').innerText = expScore;
+            document.getElementById('hudViolationCount').innerText = violationCount;
+            document.getElementById('modalViolationCount').innerText = `${violationCount}x`;
+
+            playSound('warning');
+            document.getElementById('antiCheatModal').classList.remove('hidden');
+        }
+
+        function closeViolationModal() {
+            playSound('click');
+            document.getElementById('antiCheatModal').classList.add('hidden');
+        }
+
+        // Disable Context Menu (Right Click)
+        document.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            if (examActive) triggerViolation();
+        });
+
+        // Disable Drag & Drop
+        document.addEventListener('dragstart', (e) => e.preventDefault());
+
+        // Disable Copy, Cut, Paste
+        ['copy', 'cut', 'paste'].forEach(evt => {
+            document.addEventListener(evt, (e) => {
+                if (examActive) {
+                    e.preventDefault();
+                    triggerViolation();
+                }
+            });
+        });
+
+        // Keyboard Shortcut Protections
+        document.addEventListener('keydown', (e) => {
+            if (!examActive) return;
+
+            const isCtrl = e.ctrlKey || e.metaKey;
+            const forbiddenKeys = ['c', 'u', 'p', 's', 'i', 'j'];
+
+            if (
+                e.key === 'F12' ||
+                e.key === 'PrintScreen' ||
+                (isCtrl && forbiddenKeys.includes(e.key.toLowerCase()))
+            ) {
+                e.preventDefault();
+                triggerViolation();
+            }
+        });
+
+        // Visibility / Tab Change Detection
+        document.addEventListener('visibilitychange', () => {
+            if (examActive && document.hidden) {
+                triggerViolation();
+            }
+        });
+
+        window.addEventListener('blur', () => {
+            if (examActive) {
+                triggerViolation();
+            }
+        });
+
+        function showCertificateModal() {
+            playSound('click');
+            document.getElementById('certModal').classList.remove('hidden');
+        }
+
+        function closeCertificateModal() {
+            playSound('click');
+            document.getElementById('certModal').classList.add('hidden');
+        }
+
+        function printCertificate() {
+            window.print();
+        }
+
+        function downloadDiscussionPDF() {
+            playSound('click');
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({
+                orientation: 'p',
+                unit: 'mm',
+                format: 'a4'
+            });
+
+            // Header Banner
+            doc.setFillColor(15, 23, 42); 
+            doc.rect(0, 0, 210, 30, 'F');
+
+            doc.setTextColor(245, 158, 11); 
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(14);
+            doc.text('PEMBAHASAN SOAL & EVALUASI MANDIRI - QUIZ 3', 14, 14);
+
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(9.5);
+            doc.text(`Mata Pelajaran: BAHASA INGGRIS OTOMOTIF (GIVING SUGGESTION AND OPINION)`, 14, 21);
+
+            // Student Meta
+            doc.setTextColor(30, 41, 59);
+            doc.setFontSize(9.5);
+            doc.text(`Nama Siswa : ${studentData.name}`, 14, 37);
+            doc.text(`Kelas / Absen: ${studentData.class} / ${studentData.absen}`, 14, 43);
+            doc.text(`Tipe Ujian  : ${examTypeLabel} | Tanggal Cetak: ${new Date().toLocaleDateString('id-ID')}`, 14, 49);
+
+            doc.setLineWidth(0.5);
+            doc.setDrawColor(203, 213, 225);
+            doc.line(14, 53, 196, 53);
+
+            let yPos = 60;
+
+            currentQuizSet.forEach((q, idx) => {
+                if (yPos > 260) {
+                    doc.addPage();
+                    yPos = 20;
+                }
+
+                const userAnsIdx = userAnswers[idx];
+                const isCorrect = userAnsIdx === q.answer;
+
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(9);
+                doc.setTextColor(15, 23, 42);
+                
+                const cleanText = q.text.replace(/<br\s*\/?>/gi, ' ');
+                const qLines = doc.splitTextToSize(`${idx + 1}. [${q.context}] ${cleanText}`, 180);
+                doc.text(qLines, 14, yPos);
+                yPos += (qLines.length * 4) + 2;
+
+                doc.setFont('helvetica', 'normal');
+                const studentAnsText = userAnsIdx !== undefined ? q.options[userAnsIdx] : 'Tidak dijawab';
+                const correctAnsText = q.options[q.answer];
+
+                doc.setTextColor(isCorrect ? 16 : 225, isCorrect ? 185 : 29, isCorrect ? 129 : 72);
+                doc.text(`Jawaban Siswa: ${studentAnsText} (${isCorrect ? 'BENAR' : 'SALAH'})`, 18, yPos);
+                yPos += 4.5;
+
+                if (!isCorrect) {
+                    doc.setTextColor(6, 182, 212);
+                    doc.text(`Kunci Jawaban  : ${correctAnsText}`, 18, yPos);
+                    yPos += 4.5;
+                }
+
+                // Indonesian Pembahasan for Student Self-Study
+                doc.setTextColor(71, 85, 105);
+                const expLines = doc.splitTextToSize(`Pembahasan Mandiri: ${q.explanation}`, 172);
+                doc.text(expLines, 18, yPos);
+                yPos += (expLines.length * 4) + 5;
+            });
+
+            const safeName = studentData.name.replace(/[^a-zA-Z0-9]/g, '_');
+            doc.save(`Pembahasan_Quiz3_Inggris_${safeName}.pdf`);
+        }
+    </script>
+</body>
+</html>
